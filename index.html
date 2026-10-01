@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Security Awareness Training</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .box {
+            background: white;
+            padding: 30px;
+            width: 320px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px #ccc;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #3897f0;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <h2>Security Awareness Training</h2>
+
+    <p>Enter your <b>training username</b>.</p>
+
+    <input
+        id="username"
+        type="text"
+        placeholder="Training username"
+    >
+
+    <button onclick="submitTraining()">
+        Submit
+    </button>
+
+    <p id="result"></p>
+
+</div>
+
+<script>
+async function submitTraining() {
+
+    const username =
+        document.getElementById("username").value;
+
+    if (!username) {
+        alert("Enter a training username");
+        return;
+    }
+
+    await fetch("/training", {
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            username: username
+        })
+    });
+
+    document.getElementById("result").innerHTML =
+        "✅ Training submission recorded.";
+}
+</script>
+
+</body>
+</html>
